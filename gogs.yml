@@ -2,7 +2,7 @@
   tasks:
   
   - name: change directoty to home
-    command: "cd /home"
+    command: cd /home
 
   - name: clone the repository
     git:
@@ -12,13 +12,13 @@
       update: yes
 
   - name: change directory to gogs 
-    command: "cd gogs"
+    command: cd gogs
 
   - name: create direcory for app data
-    command: "mkdir appdata"
+    command: mkdir appdata
 
   - name: build gogs
-    command: "go build -o gogs"
+    command: go build -o gogs
 
   - name: start the app
-    command: "./gogs web"
+    command: ./gogs web
