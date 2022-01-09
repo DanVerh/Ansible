@@ -1,15 +1,25 @@
 - hosts: all
   tasks:
-
-  - name: change directory
-    command: cd /usr/local
+- hosts: all
+  tasks:
 
   - name: get archive
     command: wget https://go.dev/dl/go1.17.6.linux-amd64.tar.gz
-  
-  - name: extract archive
-    command: rm -rf /usr/local/go && tar -C /usr/local -xzf go1.17.6.linux-amd64.tar.gz
+    become: yes
+    args:
+      chdir: /usr/local
 
-  - name: add directory to PATH
-    command: export PATH=$PATH:/usr/local/go/bin
+  - name: extract archive
+    command: tar -C /usr/local -xzf go1.17.6.linux-amd64.tar.gz
+    become: yes
+    args:
+      chdir: /usr/local
+
+# Doesn't work
+  - name: Add another bin dir to system-wide $PATH.
+    become: yes
+    copy:
+      dest: /etc/profile.d/custom-path.sh
+      content: 'PATH=$PATH:/usr/local/go/bin'
+
 

@@ -1,24 +1,26 @@
 - hosts: all
   tasks:
-  
-  - name: change directoty to home
-    command: cd /home
 
   - name: clone the repository
-    git:
-      repo: https://github.com/DanVerh/gogs.git
-      dest: /home
-      clone: yes
-      update: yes
-
-  - name: change directory to gogs 
-    command: cd gogs
+    command: git clone https://github.com/DanVerh/gogs.git
+    become: yes
+    args:
+      chdir: /home
 
   - name: create direcory for app data
     command: mkdir appdata
+    become: yes
+    args:
+      chdir: /home/gogs
 
   - name: build gogs
     command: go build -o gogs
+    become: yes
+    args:
+      chdir: /home/gogs
 
   - name: start the app
     command: ./gogs web
+    become: yes
+    args:
+      chdir: /home/gogs

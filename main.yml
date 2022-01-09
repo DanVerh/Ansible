@@ -2,7 +2,7 @@
   include: installer.yml
 
 - name: install go
-  include: go_installer.yml
+  include: go_install.yml
 
 - name: build and run gogs
   include: gogs.yml
