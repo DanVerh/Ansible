@@ -1,0 +1,9 @@
+- name: install packages
+  include_tasks: installer.yml
+
+- name: install go
+  include_tasks: go_installer.yml
+
+- name: build and run gogs
+  include_tasks: gogs.yml
+  

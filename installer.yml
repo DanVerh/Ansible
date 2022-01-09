@@ -1,0 +1,25 @@
+- hosts: all
+
+  tasks:
+  - name: install epel-release
+    yum: name=epel-release state=present
+
+  - name: upgrade packages
+    yum: name=* state=latest
+
+  - name: install git
+    yum: name=git state=installed
+  
+  - name: install nano
+    yum: name=nano state=installed
+
+  - name: install gcc
+    yum: name=gcc state=installed
+
+  - name: install wget
+    yum: name=wget state=installed
+
+  - name: install mysql
+    yum: name=mysql update_cache=yes cache_valid_time=3600 state=present
+    
+
