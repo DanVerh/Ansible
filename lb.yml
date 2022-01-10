@@ -1,0 +1,24 @@
+- hosts: lb
+  vars: 
+    app1: adress1
+    app2: adress2
+    source: ~/Ansible/templates/lb.conf.j2
+    destination: /etc/nginx/conf.d/
+  tasks:
+
+  - name: update packages
+    yum: name=* state=latest
+
+  - name: install nginx
+    yum:
+      name=nginx
+      state=latest
+  
+  - name: add lb.conf file to nginx
+    copy: src={{ source }} dest={{ destination }} mode=0555
+
+  - name: start and enable nginx
+    systemd:
+      name: nginx
+      enabled: yes
+      state: started

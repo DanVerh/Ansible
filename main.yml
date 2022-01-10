@@ -6,4 +6,7 @@
 
 - name: build and run gogs
   include: gogs.yml
+
+- name: configure lb
+  include: lb.yml
   
