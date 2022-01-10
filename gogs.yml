@@ -21,10 +21,10 @@
      become: yes
      command: go build -o gogs
 
-#   - name: start the app
-#    command: ./gogs web
-#     become: yes
-#     args:
-#       chdir: /home/gogs
-#     environment:
-#       PATH: /sbin:/usr/sbin:/bin:/usr/bin:/usr/local/bin:/usr/local/go/bin
+   - name: start the app
+     command: ./gogs web
+     become: yes
+     args:
+     chdir: /home/gogs
+     environment:
+       PATH: /sbin:/usr/sbin:/bin:/usr/bin:/usr/local/bin:/usr/local/go/bin
