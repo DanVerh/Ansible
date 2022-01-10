@@ -1,26 +1,30 @@
-- hosts: all
-  tasks:
+ - hosts: all
+   tasks:
 
-  - name: clone the repository
-    command: git clone https://github.com/DanVerh/gogs.git
-    become: yes
-    args:
-      chdir: /home
+   - name: clone the repository
+     command: git clone https://github.com/DanVerh/gogs.git
+     become: yes
+     args:
+       chdir: /home
 
-  - name: create direcory for app data
-    command: mkdir appdata
-    become: yes
-    args:
-      chdir: /home/gogs
+   - name: create direcory for app data
+     command: mkdir appdata
+     become: yes
+     args:
+       chdir: /home/gogs
 
-  - name: build gogs
-    command: go build -o gogs
-    become: yes
-    args:
-      chdir: /home/gogs
+   - name: build gogs
+     args:
+       chdir: /home/gogs
+     environment:
+       PATH: /sbin:/usr/sbin:/bin:/usr/bin:/usr/local/bin:/usr/local/go/bin
+     become: yes
+     command: go build -o gogs
 
-  - name: start the app
-    command: ./gogs web
-    become: yes
-    args:
-      chdir: /home/gogs
+#   - name: start the app
+#    command: ./gogs web
+#     become: yes
+#     args:
+#       chdir: /home/gogs
+#     environment:
+#       PATH: /sbin:/usr/sbin:/bin:/usr/bin:/usr/local/bin:/usr/local/go/bin
