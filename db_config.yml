@@ -9,6 +9,7 @@
     postgresql_db:
       state: present
       name: "{{ db_name }}"
+      encoding: utf8mb4
     become: yes
     become_user: postgres
 
