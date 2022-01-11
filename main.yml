@@ -4,15 +4,15 @@
 - name: install go
   include: go_install.yml
 
-- name: build and run gogs
-  include: gogs.yml
-
-- name: configure lb
-  include: lb.yml
-
 - name: install postgresql
   include: postgresql_install.yml
 
 - name: create db
   include: db_config.yml
+
+- name: build and run gogs
+  include: gogs.yml
+
+- name: configure lb
+  include: lb.yml
   
