@@ -9,4 +9,10 @@
 
 - name: configure lb
   include: lb.yml
+
+- name: install postgresql
+  include: postgresql_install.yml
+
+- name: create db
+  include: db_config.yml
   
