@@ -13,15 +13,15 @@
     get_url: url=http://repo.mysql.com/mysql-community-release-el7-5.noarch.rpm dest=~/mysql-community-release-el7-5.noarch.rpm
 
   - name: install rpm
-    yum: name=~/mysql-community-release-el7-5.noarch.rpm state=present
-
-  - name: update packages
-    yum: name=* state=latest
+    become: yes
+    yum: name=mysql-community-release-el7-5.noarch.rpm state=present
 
   - name: install mysql
+    become: yes
     yum: name=mysql-server state=installed
 
   - name: start my sql service
+    become: yes
     service: name=mysqld state=restarted
 
   - name: create db
@@ -29,5 +29,4 @@
     mysql_db:
       login_user: root
       name: gogs
-      encoding: utf8mb4_general_ci
       state: present
