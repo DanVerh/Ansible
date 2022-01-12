@@ -1,0 +1,16 @@
+- hosts: apps
+  tasks:
+
+  - name: install nfs
+    yum: name=nfs* state=installed
+
+  - name: generate exports
+    become: yes
+    template: src=~/Ansible/templates/exports dest=/etc/exports mode=0644
+
+  - name: enable nfs
+    service:
+      name: nfs
+      state: enabled
+
+  

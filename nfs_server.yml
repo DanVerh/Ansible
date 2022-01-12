@@ -1,0 +1,20 @@
+- hosts: nfs
+  vars:
+    app1_ip: some_ip
+    app2_ip: some_ip
+
+  tasks:
+  - name: generate app.ini
+    template: src=~/Ansible/templates/app.ini dest=~/ mode=0555
+
+  - name: create directory for app data
+    command: mkdir appdata
+
+  - name: install nfs
+    yum: name=nfs* state=installed
+
+  - name: mount appdata1
+    command: mount {{ app1_ip }}:~/home/gogs/appdata ~/appdata
+
+  - name: mount appdata2
+    command: mount {{ app2_ip }}:~/home/gogs/appdata ~/appdata
