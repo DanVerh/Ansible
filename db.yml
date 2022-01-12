@@ -1,13 +1,24 @@
 - hosts: db
   tasks: 
 
+#remove wget after test
+  - name: install wget
+    yum: name=wget state=installed
+
   - name: install Python
-    yum: name=MySQL-Python state=installed
+    become: yes
+    yum: name=MySQL-python state=latest
+
+  - name: download lib
+    get_url: url=http://repo.mysql.com/mysql-community-release-el7-5.noarch.rpm dest=~/mysql-community-release-el7-5.noarch.rpm
+
+  - name: install rpm
+    yum: name=~/mysql-community-release-el7-5.noarch.rpm state=present
+
+  - name: update packages
+    yum: name=* state=latest
 
   - name: install mysql
-    yum: name=mysql-community-release state=installed
-
-  - name: install mysql-server
     yum: name=mysql-server state=installed
 
   - name: start my sql service
