@@ -30,3 +30,10 @@
       login_user: root
       name: gogs
       state: present
+
+  - name: change root password
+    become: yes
+    mysql_user:
+      login_user: root
+      name: root
+      password: admin123
