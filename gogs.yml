@@ -25,6 +25,6 @@
      command: ./gogs web
      become: yes
      args:
-     chdir: /home/gogs
+       chdir: /home/gogs
      environment:
        PATH: /sbin:/usr/sbin:/bin:/usr/bin:/usr/local/bin:/usr/local/go/bin
