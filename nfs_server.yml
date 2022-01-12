@@ -14,7 +14,9 @@
     yum: name=nfs* state=installed
 
   - name: mount appdata1
-    command: mount {{ app1_ip }}:~/home/gogs/appdata ~/appdata
+    become: yes
+    command: mount {{ app1_ip }}:/home/gogs/appdata /home/ec2-user/appdata
 
   - name: mount appdata2
-    command: mount {{ app2_ip }}:~/home/gogs/appdata ~/appdata
+    become: yes
+    command: mount {{ app2_ip }}:/home/gogs/appdata /home/ec2-user/appdata
