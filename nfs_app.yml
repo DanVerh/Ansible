@@ -8,9 +8,10 @@
     become: yes
     template: src=~/Ansible/templates/exports dest=/etc/exports mode=0644
 
-  - name: enable nfs
+  - name: start nfs
+    become: yes
     service:
       name: nfs
-      state: enabled
+      state: started
 
   
