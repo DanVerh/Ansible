@@ -1,0 +1,18 @@
+- hosts: db
+  tasks:
+
+  - name: install mariadb
+    become: yes
+    yum: name=mariadb-server state=installed
+
+  - name: create db
+    mysql_query:
+      query: CREATE SCHEMA `gogs` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci
+
+  - name: create user
+    mysql_query:
+      query: GRANT ALL PRIVILEGES ON gogs.* TO 'gogs'@'localhost' IDENTIFIED BY 'admin123'
+
+  - name: flush
+    mysql_query:
+      query: FLUSH PRIVILEGES
