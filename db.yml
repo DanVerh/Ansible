@@ -29,7 +29,8 @@
     mysql_db:
       login_user: root
       name: gogs
-      state: present
+      state: dump
+      target: /home/gogs/scripts/mysql.sql
 
   - name: change root password
     become: yes
