@@ -24,7 +24,14 @@
     become: yes
     service: name=mysqld state=restarted
 
-  - name: create db
+  - name: create db 
+    become: yes
+    mysql_db:
+      login_user: root
+      name: gogs
+      state: present
+
+  - name: use the script for db
     become: yes
     mysql_db:
       login_user: root
