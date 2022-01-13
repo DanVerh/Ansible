@@ -30,18 +30,15 @@
       login_user: root
       name: gogs
       state: present
-
-  - name: use the script for db
-    become: yes
-    mysql_db:
-      login_user: root
-      name: gogs
-      state: dump
-      target: /home/gogs/scripts/mysql.sql
-
+      encoding: utf8mb4
+    
   - name: change root password
     become: yes
     mysql_user:
       login_user: root
       name: root
       password: admin123
+
+  - name: restart my sql service
+    become: yes
+    service: name=mysqld state=restarted
