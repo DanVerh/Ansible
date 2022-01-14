@@ -5,7 +5,7 @@
   include: go_install.yml
 
 - name: create db
-  include: db.yml
+  include: mariadb.yml
 
 - name: build and run gogs
   include: gogs.yml

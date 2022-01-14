@@ -5,9 +5,19 @@
     become: yes
     yum: name=MySQL-python state=latest
 
-  - name: install mariadb
+  - name: download lib
+    get_url: url=https://downloads.mariadb.com/MariaDB/mariadb_repo_setup dest=~/mariadb_repo_setup
+
+  - name: chmod
+    command: chmod +x mariadb_repo_setup
+
+  - name: setup mariadb
     become: yes
-    command: name=mariadb-server state= latest
+    command: ./mariadb_repo_setup
+
+  - name: install MariaDB
+    become: yes
+    command: name=mariadb-server state=latest
 
   - name: start mariadb
     become: yes
