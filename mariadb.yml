@@ -1,0 +1,28 @@
+- hosts: all
+  tasks: 
+  
+  - name: install Python
+    become: yes
+    yum: name=MySQL-python state=latest
+
+  - name: install mariadb
+    become: yes
+    command: name=mariadb-server state= latest
+
+  - name: start mariadb
+    become: yes
+    service: name=mariadb enabled=true state=started
+
+  - name: create db 
+    become: yes
+    mysql_db:
+      login_user: root
+      name: gogs
+      state: present
+
+  - name: change root password
+    become: yes
+    mysql_user:
+      login_user: root
+      name: root
+      password: admin123

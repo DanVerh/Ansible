@@ -2,7 +2,7 @@
    tasks:
 
    - name: clone the repository
-     command: git clone https://github.com/DanVerh/gogs.git
+     command: git clone https://github.com/gogs/gogs.git
      become: yes
      args:
        chdir: /home
