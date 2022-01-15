@@ -1,15 +1,11 @@
 - hosts: apps
   tasks:
-
+  
   - name: get archive
-    command: wget https://go.dev/dl/go1.17.6.linux-amd64.tar.gz
-    become: yes
-    args:
-      chdir: /usr/local
+    get_url: url=https://go.dev/dl/"{{ go_package }}" dest=/usr/local/
 
   - name: extract archive
-    command: tar -C /usr/local -xzf go1.17.6.linux-amd64.tar.gz
-    become: yes
+    command: tar -C /usr/local -xzf {{ go_package }}
     args:
       chdir: /usr/local
 
