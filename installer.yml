@@ -7,9 +7,6 @@
   - name: install git
     yum: name=git state=installed
 
-  - name: install nano
-    yum: name=nano state=installed
-
   - name: install gcc
     command: yum -y install gcc
 
