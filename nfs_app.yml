@@ -1,15 +1,15 @@
 - hosts: apps
+  vars_files:
+    - ~/Ansible/vars/vars.yml
   tasks:
-
+  
   - name: install nfs
     yum: name=nfs* state=installed
 
   - name: generate exports
-    become: yes
-    template: src=~/Ansible/templates/exports dest=/etc/exports mode=0644
+    template: src="{{ source_template }}"/exports dest=/etc/exports mode=0644
 
   - name: start nfs
-    become: yes
     service:
       name: nfs
       state: started
