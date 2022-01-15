@@ -1,24 +1,18 @@
 - hosts: lb
-  vars:
-    app1: adress1
-    app2: adress2
-    source: ~/Ansible/templates/lb.conf
-    destination: /etc/nginx/conf.d/
+  vars_files:
+    - ~/Ansible/vars/vars.yml  
   tasks:
 
   - name: update packages
     yum: name=* state=latest
 
   - name: install nginx
-    become: yes
-    command: amazon-linux-extras install nginx1.12=latest -y #change for vm!
+    yum: name=nginx state=latest
 
   - name: generate lb.conf to nginx
-    become: yes
-    template: src={{ source }} dest={{ destination }} mode=0555
+    template: src="{{ source_template }}"/lb.conf dest={{ destination_lb }} mode=0555
 
   - name: start and enable nginx
-    become: yes
     service:
        name: nginx
        enabled: yes
