@@ -1,4 +1,6 @@
 - hosts: apps
+  vars_files:
+    - ~/Ansible/vars/vars.yml  
   tasks:
   
   - name: get archive
