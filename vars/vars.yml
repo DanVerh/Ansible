@@ -10,8 +10,8 @@ app_path: /home/gogs
 
 #lb vars
 destination_lb: /etc/nginx/conf.d/
-app1: adress1
-app2: adress2
+app1: 10.26.0.168
+app2: 10.26.0.185
 
 #mariadb vars
 db_password: DevOps657!

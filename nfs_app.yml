@@ -7,7 +7,7 @@
     yum: name=nfs* state=installed
 
   - name: generate exports
-    template: src="{{ source_template }}"/exports dest=/etc/exports mode=0644
+    template: src={{ source_template }}/exports dest=/etc/exports mode=0775
 
   - name: start nfs
     service:

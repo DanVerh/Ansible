@@ -1,8 +1,9 @@
 - hosts: nfs
-
+  vars_files:
+    - ~/Ansible/vars/vars.yml
   tasks:
   - name: generate app.ini
-    template: src="{{ source_template }}"/app.ini dest=~/ mode=0555
+    template: src={{ source_template }}/app.ini dest=~/ mode=0555
 
   - name: create a directory appdata
     ansible.builtin.file:
@@ -14,7 +15,7 @@
     yum: name=nfs* state=installed
 
   - name: mount appdata1
-    command: mount {{ app1 }}:"{{ app_path }}"/appdata ~/appdata
+    command: mount {{ app1 }}:{{ app_path }}/appdata ~/appdata
 
   - name: mount appdata2
-    command: mount {{ app2 }}:"{{ app_path }}"/appdata ~/appdata
+    command: mount {{ app2 }}:{{ app_path }}/appdata ~/appdata

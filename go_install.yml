@@ -4,7 +4,7 @@
   tasks:
   
   - name: get archive
-    get_url: url=https://go.dev/dl/"{{ go_package }}" dest=/usr/local/
+    get_url: url=https://go.dev/dl/{{ go_package }} dest=/usr/local/
 
   - name: extract archive
     command: tar -C /usr/local -xzf {{ go_package }}

@@ -32,4 +32,4 @@
     mysql_user:
       login_user: root
       name: root
-      password: {{ db_password }}
+      password: "{{ db_password }}"

@@ -6,11 +6,14 @@
   - name: update packages
     yum: name=* state=latest
 
+  - name: install epel
+    yum: name=epel-release state=present
+
   - name: install nginx
     yum: name=nginx state=latest
 
   - name: generate lb.conf to nginx
-    template: src="{{ source_template }}"/lb.conf dest={{ destination_lb }} mode=0555
+    template: src={{ source_template }}/lb.conf dest={{ destination_lb }} mode=0555
 
   - name: start and enable nginx
     service:
