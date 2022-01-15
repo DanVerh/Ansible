@@ -1,8 +1,7 @@
-- hosts: all
+- hosts: db
   tasks: 
   
   - name: install Python
-    become: yes
     yum: name=MySQL-python state=latest
 
   - name: download lib
@@ -12,19 +11,15 @@
     command: chmod +x mariadb_repo_setup
 
   - name: setup mariadb
-    become: yes
     command: ./mariadb_repo_setup
 
   - name: install MariaDB
-    become: yes
     command: name=mariadb-server state=latest
 
   - name: start mariadb
-    become: yes
     service: name=mariadb enabled=true state=started
 
   - name: create db 
-    become: yes
     mysql_db:
       login_user: root
       name: gogs
@@ -35,4 +30,4 @@
     mysql_user:
       login_user: root
       name: root
-      password: admin123
+      password: {{ db_password }}
