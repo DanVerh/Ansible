@@ -4,12 +4,18 @@
 - name: install go
   include: go_install.yml
 
-- name: create db
-  include: mariadb.yml
-
 - name: build and run gogs
   include: gogs.yml
 
+- name: create db
+  include: mariadb.yml
+
 - name: configure lb
   include: lb.yml
+
+- name: configure exports
+  include: nfs_app.yml
+
+- name: nfs server
+  include: nfs_server.yml
   
