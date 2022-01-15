@@ -12,10 +12,7 @@
     yum: name=nano state=installed
 
   - name: install gcc
-    command: sudo yum -y install gcc
-
-  - name: install wget
-    yum: name=wget state=installed
+    command: yum -y install gcc
 
     
 
