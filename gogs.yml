@@ -1,30 +1,33 @@
  - hosts: apps
+   vars_files:
+    - ~/Ansible/vars/vars.yml
    tasks:
 
    - name: clone the repository
-     command: git clone https://github.com/gogs/gogs.git
+     command: git clone {{ git_repo }}
      become: yes
      args:
        chdir: /home
 
-   - name: create direcory for app data
-     command: mkdir appdata
-     become: yes
-     args:
-       chdir: /home/gogs
+   - name: create a directory appdata
+     ansible.builtin.file:
+       path: '"{{ app_path }}"/appdata'
+       state: directory
+       mode: '0755'
+
+   - name: generate app.ini
+     template: src="{{ source_template }}"/app.ini dest="{{ app_path }}"/conf/app.ini mode=0775
 
    - name: build gogs
      args:
-       chdir: /home/gogs
+       chdir: {{ app_path }}
      environment:
        PATH: /sbin:/usr/sbin:/bin:/usr/bin:/usr/local/bin:/usr/local/go/bin
-     become: yes
      command: go build -o gogs
 
    - name: start the app
      command: ./gogs web
-     become: yes
      args:
-       chdir: /home/gogs
+       chdir: {{ app_path }}
      environment:
        PATH: /sbin:/usr/sbin:/bin:/usr/bin:/usr/local/bin:/usr/local/go/bin
