@@ -9,15 +9,10 @@
     ansible.builtin.file:
       path: ~/appdata
       state: directory
-      mode: '0755'
+      mode: '0775'
 
   - name: install nfs
     yum: name=nfs* state=installed
-
-  - name: create file 
-    command: touch example.txt
-    args:
-      chdir: /home/gogs/appdata
 
   - name: mount appdata1
     command: mount {{ app1 }}:{{ app_path }}/appdata ~/appdata
