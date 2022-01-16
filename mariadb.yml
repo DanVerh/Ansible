@@ -6,20 +6,28 @@
   - name: install Python
     yum: name=MySQL-python state=latest
 
-  - name: download lib
-    get_url: url=https://downloads.mariadb.com/MariaDB/mariadb_repo_setup dest=~/mariadb_repo_setup
-
-  - name: chmod
-    command: chmod +x mariadb_repo_setup
-
-  - name: setup mariadb
-    command: ./mariadb_repo_setup
-
   - name: install MariaDB
-    yum: name=MariaDB-server state=latest
+    yum: name=mariadb-server state=latest
 
   - name: start mariadb
     service: name=mariadb enabled=true state=started
+  
+  - name: Start and enable firewall
+    service:
+      name: firewalld
+      state: started
+      enabled: yes
+
+  - name: Configure firewall for DB
+    firewalld:
+      port: 3306/tcp
+      permanent: yes
+      state: enabled
+
+  - name: Reload firewall
+    service:
+      name: firewalld
+      state: reloade
 
   - name: create db 
     mysql_db:
@@ -32,19 +40,3 @@
       login_user: root
       name: root
       password: "{{ db_password }}"
-
-  - name: create user for app1
-    mysql_user:
-      login_user: root
-      login_password: "{{ db_password }}"
-      name: app1
-      password: "{{ db_password }}"
-      host: "{{ app1 }}:3000"
-
-  - name: create user for app2
-    mysql_user:
-      login_user: root
-      login_password: "{{ db_password }}"
-      name: app2
-      password: "{{ db_password }}"
-      host: "{{ app2 }}:3000"  
