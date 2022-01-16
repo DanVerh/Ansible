@@ -23,10 +23,3 @@
      environment:
        PATH: /sbin:/usr/sbin:/bin:/usr/bin:/usr/local/bin:/usr/local/go/bin
      command: go build -o gogs
-
-   - name: start the app
-     command: ./gogs web
-     args:
-       chdir: "{{ app_path }}"
-     environment:
-       PATH: /sbin:/usr/sbin:/bin:/usr/bin:/usr/local/bin:/usr/local/go/bin

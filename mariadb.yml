@@ -16,7 +16,7 @@
     command: ./mariadb_repo_setup
 
   - name: install MariaDB
-    command: name=mariadb-server state=latest
+    yum: name=MariaDB-server state=latest
 
   - name: start mariadb
     service: name=mariadb enabled=true state=started
@@ -28,8 +28,23 @@
       state: present
 
   - name: change root password
-    become: yes
     mysql_user:
       login_user: root
       name: root
       password: "{{ db_password }}"
+
+  - name: create user for app1
+    mysql_user:
+      login_user: root
+      login_password: "{{ db_password }}"
+      name: app1
+      password: "{{ db_password }}"
+      host: "{{ app1 }}:3000"
+
+  - name: create user for app2
+    mysql_user:
+      login_user: root
+      login_password: "{{ db_password }}"
+      name: app2
+      password: "{{ db_password }}"
+      host: "{{ app2 }}:3000"  

@@ -4,7 +4,7 @@
 - name: install go
   include: go_install.yml
 
-- name: build and run gogs
+- name: build gogs
   include: gogs.yml
 
 - name: create db
@@ -18,4 +18,7 @@
 
 - name: nfs server
   include: nfs_server.yml
+
+- name: run gogs
+  include: start_app.yml
   
