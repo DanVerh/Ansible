@@ -15,5 +15,5 @@ app2: 10.26.0.185
 
 #mariadb vars
 db_password: DevOps657!
-ip-db: 10.26
+ip_db: 10.26
 

@@ -3,11 +3,21 @@
     - ~/Ansible/vars/vars.yml
   tasks: 
   
-  - name: install Python
-    yum: name=MySQL-python state=latest
+  - name: Add MariaDB-repo
+    yum_repository:
+      name: mariadb
+      description: mariadb
+      baseurl: http://yum.mariadb.org/10.3/centos7-amd64/
+      gpgkey: https://yum.mariadb.org/RPM-GPG-KEY-MariaDB
+    gpgcheck: yes
 
-  - name: install MariaDB
-    yum: name=mariadb-server state=latest
+  - name: Install mariadb-server
+    yum:
+      name:
+        - mariadb-server
+        - MariaDB-client
+        - MySQL-python
+      state: latest
 
   - name: start mariadb
     service: name=mariadb enabled=true state=started
@@ -29,8 +39,8 @@
       name: firewalld
       state: reloaded
 
-  - name: generate script for db
-    template: src={{ source_template }}/db.sql dest=~/
+ # - name: generate script for db
+ #   template: src={{ source_template }}/db.sql dest=~/
 
   - name: create db 
     mysql_db:
