@@ -9,7 +9,6 @@
       description: mariadb
       baseurl: http://yum.mariadb.org/10.3/centos7-amd64/
       gpgkey: https://yum.mariadb.org/RPM-GPG-KEY-MariaDB
-    gpgcheck: yes
 
   - name: Install mariadb-server
     yum:
@@ -39,23 +38,11 @@
       name: firewalld
       state: reloaded
 
- # - name: generate script for db
- #   template: src={{ source_template }}/db.sql dest=~/
+  - name: generate script for db
+    template: src={{ source_template }}/db.sql dest=~/
 
   - name: create db 
     mysql_db:
       state: import
       name: all
       target: ~/db.sql
-
-  #- name: create db 
-  #  mysql_db:
-  #    login_user: root
-  #    name: gogs
-  #    state: present
-
-  #- name: change root password
-  #  mysql_user:
-  #    login_user: root
-  #    name: root
-  #    password: "{{ db_password }}"
